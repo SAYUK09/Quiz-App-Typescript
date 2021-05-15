@@ -16,17 +16,21 @@ const initialState: initialStateType = {
   currentquiz: "",
   correct: 0,
   wrong: 0,
+  disable: false,
   data: quizDB
 };
+
+type StatusType = "starting" | "finished" | "Running";
 
 export type initialStateType = {
   user: string;
   score: number;
-  status: any;
+  status: StatusType;
   currentQsNo: number;
   currentquiz: string;
   correct: number;
   wrong: number;
+  disable: boolean;
   data: Quiz;
 };
 
@@ -35,18 +39,40 @@ type CxtState = {
   dispatch: React.Dispatch<any>;
 };
 
-type ActionType = { type: "RIGHT" };
+type ActionType =
+  | { type: "RIGHT_ANS" }
+  | { type: "NEXT_QUE" }
+  | { type: "WRONG_ANS" }
+  | { type: "TOGGLE_DISABLE" };
 
 export const QuizContext = createContext({} as CxtState);
 
 export function redcFunc(
   redcState: initialStateType,
-  action: any
+  action: ActionType
 ): initialStateType {
   switch (action.type) {
-    case "RIGHT":
-      return { ...redcState, currentQsNo: redcState.currentQsNo + 1 };
+    case "RIGHT_ANS":
+      return { ...redcState, score: redcState.score + 1 };
       break;
+
+    case "WRONG_ANS":
+      return { ...redcState, score: redcState.score - 1 };
+      break;
+
+    case "NEXT_QUE":
+      if (redcState.currentQsNo + 1 < redcState.data.questions.length) {
+        return { ...redcState, currentQsNo: redcState.currentQsNo + 1 };
+      } else {
+        return {
+          ...redcState,
+          status: "finished",
+          disable: !redcState.disable
+        };
+      }
+
+    case "TOGGLE_DISABLE":
+      return { ...redcState, disable: !redcState.disable };
 
     default:
       return redcState;
