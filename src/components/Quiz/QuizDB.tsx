@@ -1,10 +1,10 @@
 import { Quiz } from "../../types";
 
-export const quiz: Quiz = {
+export const quizDB: Quiz = {
   quizName: "Content Create Kr Le",
   questions: [
     {
-      question: "Ky kr rahe ho",
+      question: "Ky kr rahe ho ?",
       points: 2,
       options: [
         {
@@ -34,7 +34,7 @@ export const quiz: Quiz = {
           isRight: false
         },
         {
-          answer: "Ha ",
+          answer: "Ha",
           isRight: false
         },
         {
