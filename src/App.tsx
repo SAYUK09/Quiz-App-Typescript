@@ -11,15 +11,17 @@ import {
 } from "react-router-dom";
 
 import { Quiz } from "./components/Quiz/Quiz";
+import { Home } from "./components/Home/Home";
+import { Nav } from "./components/Nav/Nav";
 
 export default function App() {
   return (
     <div className="App">
-      <h1>QUIZ</h1>
-
       <Router>
+        <Nav />
         <Routes>
-          <Route path="/" element={<Quiz />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/quiz" element={<Quiz />} />
         </Routes>
       </Router>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Quiz.css"
 
 import { useQuiz } from "../../contexts/Quiz-Context";
 
@@ -9,6 +10,9 @@ export function Quiz() {
 
   return (
     <>
+      <div className="quizParent">
+
+      
       <b> {state.status}</b>
 
       <h2>{state.data.quizName}</h2>
@@ -41,6 +45,15 @@ export function Quiz() {
       >
         NEXT
       </button>
+
+      <button
+        onClick={() => {
+          dispatch({ type: "RESET" });
+        }}
+      >
+        RESET
+      </button>
+      </div>
     </>
   );
 }

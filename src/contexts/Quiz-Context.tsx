@@ -40,6 +40,7 @@ type CxtState = {
 };
 
 type ActionType =
+  | { type: "RESET" }
   | { type: "RIGHT_ANS" }
   | { type: "NEXT_QUE" }
   | { type: "WRONG_ANS" }
@@ -52,6 +53,16 @@ export function redcFunc(
   action: ActionType
 ): initialStateType {
   switch (action.type) {
+    case "RESET":
+      return {
+        ...redcState,
+        score: 0,
+        currentQsNo: 0,
+        correct: 0,
+        wrong: 0,
+        disable: false
+      };
+
     case "RIGHT_ANS":
       return { ...redcState, score: redcState.score + 1 };
       break;
