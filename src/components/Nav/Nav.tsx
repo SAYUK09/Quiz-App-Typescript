@@ -19,8 +19,7 @@ export function Nav() {
     root: {
       background: "#3b82f6",
       display: "flex",
-      justifyContent: "space-between",
-      height: "10vh"
+      justifyContent: "space-between"
     }
   });
 

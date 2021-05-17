@@ -36,15 +36,15 @@ export const quizDB: Quiz = {
         },
         {
           answer: "Podcast, Enhanced Podcast, Video Podcast",
-          isRight: false
-        },
-        {
-          answer: "Podcasters, Modcasts, Mobilecasts",
           isRight: true
         },
         {
+          answer: "Podcasters, Modcasts, Mobilecasts",
+          isRight: false
+        },
+        {
           answer:
-            "A recording of audio with still pictures, kind of like a slideshow",
+            "All",
           isRight: false
         }
       ]

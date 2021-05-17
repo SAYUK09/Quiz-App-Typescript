@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Quiz.css";
 import { useQuiz } from "../../contexts/Quiz-Context";
+import {Modals} from "../Modal/Modal"
 
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
@@ -9,9 +10,10 @@ import Chip from "@material-ui/core/Chip";
 import BubbleChartIcon from "@material-ui/icons/BubbleChart";
 import Button from "@material-ui/core/Button";
 
+
 export function Quiz() {
   const { state, dispatch } = useQuiz();
-  // const [disable, setDisable] = useState(false);
+
   console.log(state);
 
   const useChip = makeStyles((theme: Theme) =>
@@ -57,8 +59,11 @@ export function Quiz() {
   const button = useButton();
   const secBtn = useSecButton();
 
+
   return (
     <>
+    {/* <Modals/> */}
+    {state.showModal && <Modals/>}
       <div className="quizParent">
         <div className="quizBody">
           <div className="headContainer">
@@ -79,7 +84,7 @@ export function Quiz() {
           </div>
 
           <div className="quesContainer">
-            <h3>{state.data.questions[state.currentQsNo].question}</h3>
+            <h3>Q : {state.data.questions[state.currentQsNo].question}</h3>
           </div>
 
           <div className="optDiv">
@@ -89,9 +94,19 @@ export function Quiz() {
                 onClick={() => {
                   dispatch({ type: "TOGGLE_DISABLE" });
                   if (item.isRight) {
-                    dispatch({ type: "RIGHT_ANS" });
+                    dispatch({
+                      type: "RIGHT_ANS",
+                      payload: {
+                        score: state.data.questions[state.currentQsNo].points
+                      }
+                    });
                   } else {
-                    dispatch({ type: "WRONG_ANS" });
+                    dispatch({
+                      type: "WRONG_ANS",
+                      payload: {
+                        score: state.data.questions[state.currentQsNo].points
+                      }
+                    });
                   }
                 }}
               >

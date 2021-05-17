@@ -17,6 +17,7 @@ const initialState: initialStateType = {
   correct: 0,
   wrong: 0,
   disable: false,
+  showModal: false,
   data: quizDB
 };
 
@@ -31,6 +32,7 @@ export type initialStateType = {
   correct: number;
   wrong: number;
   disable: boolean;
+  showModal:boolean;
   data: Quiz;
 };
 
@@ -41,9 +43,9 @@ type CxtState = {
 
 type ActionType =
   | { type: "RESET" }
-  | { type: "RIGHT_ANS" }
+  | { type: "RIGHT_ANS"; payload: { score: number } }
   | { type: "NEXT_QUE" }
-  | { type: "WRONG_ANS" }
+  | { type: "WRONG_ANS"; payload: { score: number } }
   | { type: "TOGGLE_DISABLE" };
 
 export const QuizContext = createContext({} as CxtState);
@@ -60,26 +62,33 @@ export function redcFunc(
         currentQsNo: 0,
         correct: 0,
         wrong: 0,
-        disable: false
+        disable: false,
+        showModal:false,
       };
 
     case "RIGHT_ANS":
-      return { ...redcState, score: redcState.score + 1 };
+      return { ...redcState, score: redcState.score + action.payload.score };
       break;
 
     case "WRONG_ANS":
-      return { ...redcState, score: redcState.score - 1 };
+      return { ...redcState, score: redcState.score - action.payload.score };
       break;
 
     case "NEXT_QUE":
       console.log(redcState.data.questions.length);
       if (redcState.currentQsNo + 1 < redcState.data.questions.length) {
-        return { ...redcState, currentQsNo: redcState.currentQsNo + 1 };
+        return {
+          ...redcState,
+          currentQsNo: redcState.currentQsNo + 1,
+          disable: false,
+          
+        };
       } else {
         return {
           ...redcState,
           status: "finished",
-          disable: !redcState.disable
+          disable: true,
+          showModal:true,
         };
       }
 
