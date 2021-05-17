@@ -72,6 +72,7 @@ export function redcFunc(
       break;
 
     case "NEXT_QUE":
+      console.log(redcState.data.questions.length);
       if (redcState.currentQsNo + 1 < redcState.data.questions.length) {
         return { ...redcState, currentQsNo: redcState.currentQsNo + 1 };
       } else {

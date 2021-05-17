@@ -1,6 +1,9 @@
 .quizParent {
   display: flex;
   justify-content: center;
+  background-color: #f3f4f6;
+  align-items: center;
+  min-height: 90vh;
 }
 
 .quizBody {
