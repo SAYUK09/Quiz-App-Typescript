@@ -13,10 +13,13 @@ import {
 import { Quiz } from "./components/Quiz/Quiz";
 import { Home } from "./components/Home/Home";
 import { Nav } from "./components/Nav/Nav";
+import { Timer } from "./components/Timer/Timer";
 
 export default function App() {
   return (
     <div className="App">
+      {/* <Timer /> */}
+
       <Router>
         <Nav />
         <Routes>

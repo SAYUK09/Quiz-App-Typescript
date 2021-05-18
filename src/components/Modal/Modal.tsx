@@ -38,9 +38,9 @@ export function Modals() {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      {/* <button type="button" onClick={handleOpen}>
         react-transition-group
-      </button>
+      </button> */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -54,7 +54,7 @@ export function Modals() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div onClick={handleOpen} className={classes.paper}>
             <h3 id="transition-modal-title">Thanks for Playing</h3>
             <h5>Your Final Score is {state.score} !</h5>
 
