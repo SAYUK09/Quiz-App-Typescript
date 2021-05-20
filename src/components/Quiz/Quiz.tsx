@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Quiz.css";
 import { useQuiz } from "../../contexts/Quiz-Context";
-import {Modals} from "../Modal/Modal"
+import { Modals } from "../Modal/Modal";
+import { Timer } from "../Timer/Timer";
 
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
@@ -10,9 +11,9 @@ import Chip from "@material-ui/core/Chip";
 import BubbleChartIcon from "@material-ui/icons/BubbleChart";
 import Button from "@material-ui/core/Button";
 
-
 export function Quiz() {
   const { state, dispatch } = useQuiz();
+  const [time, setTime] = useState<number>(21);
 
   console.log(state);
 
@@ -59,13 +60,13 @@ export function Quiz() {
   const button = useButton();
   const secBtn = useSecButton();
 
-
   return (
     <>
-    {/* <Modals/> */}
-    {state.showModal && <Modals/>}
+      {/* <Modals/> */}
+      {state.showModal && <Modals />}
       <div className="quizParent">
         <div className="quizBody">
+          <Timer time={time} />
           <div className="headContainer">
             <h3>
               {" "}
@@ -94,6 +95,7 @@ export function Quiz() {
                 onClick={() => {
                   dispatch({ type: "TOGGLE_DISABLE" });
                   if (item.isRight) {
+                    setTime(30);
                     dispatch({
                       type: "RIGHT_ANS",
                       payload: {
@@ -101,6 +103,8 @@ export function Quiz() {
                       }
                     });
                   } else {
+                    setTime(30);
+
                     dispatch({
                       type: "WRONG_ANS",
                       payload: {
@@ -118,6 +122,8 @@ export function Quiz() {
           <div className="submitButtonDiv">
             <Button
               onClick={() => {
+                setTime(30);
+
                 dispatch({ type: "RESET" });
               }}
               className={button.root}
@@ -129,6 +135,8 @@ export function Quiz() {
 
             <Button
               onClick={() => {
+                setTime(30);
+
                 dispatch({ type: "TOGGLE_DISABLE" });
 
                 dispatch({ type: "NEXT_QUE" });
