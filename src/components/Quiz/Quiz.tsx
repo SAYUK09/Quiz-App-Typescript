@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./Quiz.css";
 import { useQuiz } from "../../contexts/Quiz-Context";
 import { Modals } from "../Modal/Modal";
@@ -15,7 +16,7 @@ export function Quiz() {
   const { state, dispatch } = useQuiz();
   const [time, setTime] = useState<number>(21);
 
-  console.log(state);
+  console.log(state.data, "lalalal");
 
   const useChip = makeStyles((theme: Theme) =>
     createStyles({
@@ -66,7 +67,7 @@ export function Quiz() {
       {state.showModal && <Modals />}
       <div className="quizParent">
         <div className="quizBody">
-          <Timer time={time} />
+          {/* <Timer time={time} /> */}
           <div className="headContainer">
             <h3>
               {" "}
@@ -85,11 +86,11 @@ export function Quiz() {
           </div>
 
           <div className="quesContainer">
-            <h3>Q : {state.data.questions[state.currentQsNo].question}</h3>
+            {/* <h3>Q : {state.data.questions[state.currentQsNo].question}</h3> */}
           </div>
 
           <div className="optDiv">
-            {state.data.questions[state.currentQsNo].options.map((item) => (
+            {/* {state.data.questions[state.currentQsNo].options.map((item) => (
               <button
                 disabled={state.disable}
                 onClick={() => {
@@ -116,7 +117,7 @@ export function Quiz() {
               >
                 {item.answer}
               </button>
-            ))}
+            ))} */}
           </div>
 
           <div className="submitButtonDiv">
@@ -147,24 +148,6 @@ export function Quiz() {
             >
               Next
             </Button>
-
-            {/* <button
-              onClick={() => {
-                dispatch({ type: "TOGGLE_DISABLE" });
-
-                dispatch({ type: "NEXT_QUE" });
-              }}
-            >
-              NEXT
-            </button>
-
-            <button
-              onClick={() => {
-                dispatch({ type: "RESET" });
-              }}
-            >
-              RESET
-            </button> */}
           </div>
         </div>
       </div>

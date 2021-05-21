@@ -18,7 +18,7 @@ const initialState: initialStateType = {
   wrong: 0,
   disable: false,
   showModal: false,
-  data: quizDB
+  data: {}
 };
 
 type StatusType = "starting" | "finished" | "Running";
@@ -32,8 +32,8 @@ export type initialStateType = {
   correct: number;
   wrong: number;
   disable: boolean;
-  showModal:boolean;
-  data: Quiz;
+  showModal: boolean;
+  data: any;
 };
 
 type CxtState = {
@@ -42,6 +42,7 @@ type CxtState = {
 };
 
 type ActionType =
+  | { type: "SET_DATA"; payload: { data: any } }
   | { type: "RESET" }
   | { type: "RIGHT_ANS"; payload: { score: number } }
   | { type: "NEXT_QUE" }
@@ -55,6 +56,10 @@ export function redcFunc(
   action: ActionType
 ): initialStateType {
   switch (action.type) {
+    case "SET_DATA":
+      console.log(action.payload.data, "lllll");
+      return { ...redcState, data: action.payload.data };
+      break;
     case "RESET":
       return {
         ...redcState,
@@ -63,7 +68,7 @@ export function redcFunc(
         correct: 0,
         wrong: 0,
         disable: false,
-        showModal:false,
+        showModal: false
       };
 
     case "RIGHT_ANS":
@@ -80,15 +85,14 @@ export function redcFunc(
         return {
           ...redcState,
           currentQsNo: redcState.currentQsNo + 1,
-          disable: false,
-          
+          disable: false
         };
       } else {
         return {
           ...redcState,
           status: "finished",
           disable: true,
-          showModal:true,
+          showModal: true
         };
       }
 

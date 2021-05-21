@@ -43,8 +43,7 @@ export const quizDB: Quiz = {
           isRight: false
         },
         {
-          answer:
-            "All",
+          answer: "All",
           isRight: false
         }
       ]
