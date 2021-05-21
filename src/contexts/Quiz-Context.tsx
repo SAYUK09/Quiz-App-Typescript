@@ -18,7 +18,16 @@ const initialState: initialStateType = {
   wrong: 0,
   disable: false,
   showModal: false,
-  data: {}
+  data: {
+    quizName: "",
+    questions: [],
+    quizDetails: {
+      noOfQuestions: 0,
+      difficulty: "",
+      timeForEachQues: 0,
+      totalPoints: 0
+    }
+  }
 };
 
 type StatusType = "starting" | "finished" | "Running";
@@ -33,7 +42,7 @@ export type initialStateType = {
   wrong: number;
   disable: boolean;
   showModal: boolean;
-  data: any;
+  data: Quiz;
 };
 
 type CxtState = {
@@ -80,7 +89,6 @@ export function redcFunc(
       break;
 
     case "NEXT_QUE":
-      console.log(redcState.data.questions.length);
       if (redcState.currentQsNo + 1 < redcState.data.questions.length) {
         return {
           ...redcState,

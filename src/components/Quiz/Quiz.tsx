@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 
 export function Quiz() {
   const { state, dispatch } = useQuiz();
-  const [time, setTime] = useState<number>(21);
+  const [time, setTime] = useState(15);
 
   console.log(state.data, "lalalal");
 
@@ -86,17 +86,17 @@ export function Quiz() {
           </div>
 
           <div className="quesContainer">
-            {/* <h3>Q : {state.data.questions[state.currentQsNo].question}</h3> */}
+            <h3>Q : {state.data.questions[state.currentQsNo].question}</h3>
           </div>
 
           <div className="optDiv">
-            {/* {state.data.questions[state.currentQsNo].options.map((item) => (
+            {state.data.questions[state.currentQsNo].options.map((item) => (
               <button
                 disabled={state.disable}
                 onClick={() => {
                   dispatch({ type: "TOGGLE_DISABLE" });
                   if (item.isRight) {
-                    setTime(30);
+                    setTime(15);
                     dispatch({
                       type: "RIGHT_ANS",
                       payload: {
@@ -104,12 +104,13 @@ export function Quiz() {
                       }
                     });
                   } else {
-                    setTime(30);
+                    setTime(15);
 
                     dispatch({
                       type: "WRONG_ANS",
                       payload: {
-                        score: state.data.questions[state.currentQsNo].points
+                        score:
+                          state.data.questions[state.currentQsNo].negativePoints
                       }
                     });
                   }
@@ -117,13 +118,13 @@ export function Quiz() {
               >
                 {item.answer}
               </button>
-            ))} */}
+            ))}
           </div>
 
           <div className="submitButtonDiv">
             <Button
               onClick={() => {
-                setTime(30);
+                setTime(15);
 
                 dispatch({ type: "RESET" });
               }}
@@ -136,11 +137,10 @@ export function Quiz() {
 
             <Button
               onClick={() => {
-                setTime(30);
-
                 dispatch({ type: "TOGGLE_DISABLE" });
 
                 dispatch({ type: "NEXT_QUE" });
+                setTime(15);
               }}
               className={secBtn.root}
               variant="outlined"

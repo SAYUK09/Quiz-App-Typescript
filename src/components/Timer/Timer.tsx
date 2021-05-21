@@ -5,19 +5,19 @@ import { useQuiz } from "../../contexts/Quiz-Context";
 import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-export function Timer({ time }) {
-  const { state, dispatch } = useQuiz();
-  const [, rerender] = useState("");
+export type HeaderProps = {
+  time: any;
+};
 
-  console.log("rerende");
+export function Timer({ time }: HeaderProps) {
+  const { state, dispatch } = useQuiz();
+  console.log(time, "durrr");
   return (
     <div className="App">
-      {/* <button onClick={() => rerender()}>Re render</button> */}
       <CountdownCircleTimer
         isPlaying
-        duration={time}
+        duration={60}
         onComplete={() => {
-          console.log("ccc");
           dispatch({ type: "NEXT_QUE" });
 
           return [true, 0];
@@ -32,29 +32,4 @@ export function Timer({ time }) {
       </CountdownCircleTimer>
     </div>
   );
-
-  // const { state, dispatch } = useQuiz();
-  // const [time, setTime] = useState<number>(-1);
-
-  // if (time === 0) {
-  //   dispatch({ type: "NEXT_QUE" });
-  // }
-
-  // useEffect(() => {
-  //   setTime(() => 30);
-  // }, [state.currentQsNo]);
-
-  // useEffect((): any => {
-  //   const clearInterval = setInterval(() => {
-  //     setTime((prev) => prev - 1);
-  //   }, 1000);
-
-  //   return clearInterval;
-  // }, []);
-
-  // return (
-  //   <>
-  //     <h1>{time}</h1>
-  //   </>
-  // );
 }
