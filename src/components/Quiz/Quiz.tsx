@@ -5,6 +5,8 @@ import { useQuiz } from "../../contexts/Quiz-Context";
 import { Modals } from "../Modal/Modal";
 import { Timer } from "../Timer/Timer";
 
+import { useParams } from "react-router-dom";
+
 import React from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -13,10 +15,25 @@ import BubbleChartIcon from "@material-ui/icons/BubbleChart";
 import Button from "@material-ui/core/Button";
 
 export function Quiz() {
+  const { id } = useParams();
   const { state, dispatch } = useQuiz();
-  const [time, setTime] = useState(15);
 
-  console.log(state.data, "lalalal");
+  useEffect(() => {
+    (async function () {
+      try {
+        const response = await axios.get(
+          `https://Quiz-App-API.sayuk.repl.co/${id}`
+        );
+        console.log(response.data, "ressss");
+
+        dispatch({ type: "SET_DATA", payload: { data: response.data } });
+      } catch (err) {
+        console.log(err, "errr");
+      }
+    })();
+  }, []);
+
+  const [time, setTime] = useState(0);
 
   const useChip = makeStyles((theme: Theme) =>
     createStyles({
@@ -63,11 +80,11 @@ export function Quiz() {
 
   return (
     <>
-      {/* <Modals/> */}
       {state.showModal && <Modals />}
+
       <div className="quizParent">
         <div className="quizBody">
-          {/* <Timer time={time} /> */}
+          <Timer time={time} />
           <div className="headContainer">
             <h3>
               {" "}
@@ -93,10 +110,11 @@ export function Quiz() {
             {state.data.questions[state.currentQsNo].options.map((item) => (
               <button
                 disabled={state.disable}
-                onClick={() => {
+                onClick={(event) => {
                   dispatch({ type: "TOGGLE_DISABLE" });
                   if (item.isRight) {
                     setTime(15);
+                    dispatch({ type: "NEXT_QUE" });
                     dispatch({
                       type: "RIGHT_ANS",
                       payload: {
@@ -106,11 +124,12 @@ export function Quiz() {
                   } else {
                     setTime(15);
 
+                    setTime(15);
+                    dispatch({ type: "NEXT_QUE" });
                     dispatch({
                       type: "WRONG_ANS",
                       payload: {
-                        score:
-                          state.data.questions[state.currentQsNo].negativePoints
+                        score: state.data.questions[state.currentQsNo].points
                       }
                     });
                   }
@@ -146,7 +165,7 @@ export function Quiz() {
               variant="outlined"
               color="primary"
             >
-              Next
+              Skip
             </Button>
           </div>
         </div>

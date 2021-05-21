@@ -15,6 +15,7 @@ import { Quiz } from "./components/Quiz/Quiz";
 import { Home } from "./components/Home/Home";
 import { Nav } from "./components/Nav/Nav";
 import { Timer } from "./components/Timer/Timer";
+import { QuizListing } from "./components/Quiz-Listing/Quiz-Listing";
 
 import { useQuiz } from "./contexts/Quiz-Context";
 
@@ -25,7 +26,7 @@ export default function App() {
     (async function () {
       try {
         const response = await axios.get(
-          "https://Quiz-App-API.sayuk.repl.co/quiz1"
+          `https://Quiz-App-API.sayuk.repl.co/quiz2`
         );
         console.log(response.data, "ressss");
 
@@ -42,7 +43,8 @@ export default function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quiz/:id" element={<Quiz />} />
+          <Route path="/quiz" element={<QuizListing />} />
         </Routes>
       </Router>
     </div>

@@ -16,7 +16,8 @@ export function Timer({ time }: HeaderProps) {
     <div className="App">
       <CountdownCircleTimer
         isPlaying
-        duration={60}
+        duration={15}
+        key={state.currentQsNo}
         onComplete={() => {
           dispatch({ type: "NEXT_QUE" });
 
