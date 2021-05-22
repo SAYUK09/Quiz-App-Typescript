@@ -44,7 +44,7 @@
   align-items: center;
 }
 
-.optDiv button {
+.singleOption {
   font-weight: bold;
   width: 50%;
   margin: 0.5rem;
@@ -64,4 +64,12 @@
   display: flex;
   justify-content: space-evenly;
   padding: 2rem;
+}
+
+.wrong {
+  border: 5px solid red;
+}
+
+.right {
+  border: 5px solid green;
 }

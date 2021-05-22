@@ -13,6 +13,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import BubbleChartIcon from "@material-ui/icons/BubbleChart";
 import Button from "@material-ui/core/Button";
+import { DragHandle } from "@material-ui/icons";
 
 export function Quiz() {
   const { id } = useParams();
@@ -32,8 +33,6 @@ export function Quiz() {
       }
     })();
   }, []);
-
-  const [time, setTime] = useState(0);
 
   const useChip = makeStyles((theme: Theme) =>
     createStyles({
@@ -78,13 +77,23 @@ export function Quiz() {
   const button = useButton();
   const secBtn = useSecButton();
 
+  const [selected, setSelected] = useState("");
+
+  console.log(selected, "sell");
+
+  const checkHandler = (selectedAns: any) => {
+    if (selected === selectedAns && selectedAns.isRight === false)
+      return "wrong";
+    else if (selectedAns.isRight === true) return "right";
+  };
+
   return (
     <>
       {state.showModal && <Modals />}
 
       <div className="quizParent">
         <div className="quizBody">
-          <Timer time={time} />
+          <Timer />
           <div className="headContainer">
             <h3>
               {" "}
@@ -107,44 +116,42 @@ export function Quiz() {
           </div>
 
           <div className="optDiv">
-            {state.data.questions[state.currentQsNo].options.map((item) => (
-              <button
-                disabled={state.disable}
-                onClick={(event) => {
-                  dispatch({ type: "TOGGLE_DISABLE" });
-                  if (item.isRight) {
-                    setTime(15);
-                    dispatch({ type: "NEXT_QUE" });
-                    dispatch({
-                      type: "RIGHT_ANS",
-                      payload: {
-                        score: state.data.questions[state.currentQsNo].points
-                      }
-                    });
-                  } else {
-                    setTime(15);
+            {state.data.questions[state.currentQsNo].options.map(
+              (item: any) => (
+                <button
+                  className={`singleOption  ${selected && checkHandler(item)}`}
+                  disabled={state.disable}
+                  onClick={() => {
+                    setSelected(item);
+                    dispatch({ type: "TOGGLE_DISABLE" });
 
-                    setTime(15);
-                    dispatch({ type: "NEXT_QUE" });
-                    dispatch({
-                      type: "WRONG_ANS",
-                      payload: {
-                        score: state.data.questions[state.currentQsNo].points
-                      }
-                    });
-                  }
-                }}
-              >
-                {item.answer}
-              </button>
-            ))}
+                    if (item.isRight) {
+                      dispatch({
+                        type: "RIGHT_ANS",
+                        payload: {
+                          score: state.data.questions[state.currentQsNo].points
+                        }
+                      });
+                    } else {
+                      dispatch({
+                        type: "WRONG_ANS",
+                        payload: {
+                          score: state.data.questions[state.currentQsNo].points
+                        }
+                      });
+                    }
+                  }}
+                >
+                  {item.answer}
+                </button>
+              )
+            )}
           </div>
 
           <div className="submitButtonDiv">
             <Button
               onClick={() => {
-                setTime(15);
-
+                setSelected("");
                 dispatch({ type: "RESET" });
               }}
               className={button.root}
@@ -156,10 +163,11 @@ export function Quiz() {
 
             <Button
               onClick={() => {
+                setSelected("");
+
                 dispatch({ type: "TOGGLE_DISABLE" });
 
                 dispatch({ type: "NEXT_QUE" });
-                setTime(15);
               }}
               className={secBtn.root}
               variant="outlined"

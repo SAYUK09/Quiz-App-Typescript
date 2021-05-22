@@ -5,13 +5,9 @@ import { useQuiz } from "../../contexts/Quiz-Context";
 import React from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-export type HeaderProps = {
-  time: any;
-};
-
-export function Timer({ time }: HeaderProps) {
+export function Timer() {
   const { state, dispatch } = useQuiz();
-  console.log(time, "durrr");
+
   return (
     <div className="App">
       <CountdownCircleTimer
