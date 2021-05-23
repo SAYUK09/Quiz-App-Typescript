@@ -1,14 +1,21 @@
+import "./Quiz-Listing.css";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
+import React from "react";
+
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+
 export function QuizListing() {
   const useStyles = makeStyles((theme) => ({
-    button: {
-      margin: theme.spacing(1),
-      backgroundColor: "#3b82f6",
-      fontSize: "1rem"
+    root: {
+      display: "flex",
+      "& > *": {
+        margin: theme.spacing(1),
+        fontSize: "2rem"
+      }
     }
   }));
 
@@ -16,19 +23,28 @@ export function QuizListing() {
 
   return (
     <>
-      <Link className="routerLink" to="/quiz/quiz1">
-        <Button className={classes.button} variant="contained">
-          Quiz 1
-          <ArrowForwardIosRoundedIcon />
-        </Button>
-      </Link>
+      <div className="QuizListingParent">
+        <div className={classes.root}>
+          <ButtonGroup
+            orientation="vertical"
+            color="primary"
+            aria-label="vertical contained primary button group"
+            variant="text"
+          >
+            <Link className="routerLink" to="/quiz/quiz1">
+              <Button style={{ fontSize: "1.5rem", color: "#3b82f6" }}>
+                Quiz 1{" "}
+              </Button>
+            </Link>
 
-      <Link className="routerLink" to="/quiz/quiz2">
-        <Button className={classes.button} variant="contained">
-          Quiz 2
-          <ArrowForwardIosRoundedIcon />
-        </Button>
-      </Link>
+            <Link className="routerLink" to="/quiz/quiz1">
+              <Button style={{ fontSize: "1.5rem", color: "#3b82f6" }}>
+                Quiz 2{" "}
+              </Button>
+            </Link>
+          </ButtonGroup>
+        </div>
+      </div>
     </>
   );
 }
