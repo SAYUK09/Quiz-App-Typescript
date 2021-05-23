@@ -38,7 +38,7 @@ export function Nav() {
         onChange={handleChange}
       >
         <div className="navLogo">
-          <h3>Quizzzz</h3>
+          <h3>QuizPod</h3>
         </div>
 
         <Link to="/">
