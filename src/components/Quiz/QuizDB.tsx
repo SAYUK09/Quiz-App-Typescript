@@ -1,4 +1,5 @@
-import { Quiz } from "../../types";
+import React from "react";
+// import { Quiz } from "../../types";
 
 // export const quizDB: Quiz = {
 //   quizName: "Content Create Kr Le",

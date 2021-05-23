@@ -5,7 +5,7 @@ import React, {
   useReducer,
   useState
 } from "react";
-import { quizDB } from "../components/Quiz/QuizDB";
+// import { quizDB } from "../components/Quiz/QuizDB";
 import { Quiz } from "../types";
 
 const initialState: initialStateType = {
@@ -58,7 +58,7 @@ type ActionType =
   | { type: "WRONG_ANS"; payload: { score: number } }
   | { type: "TOGGLE_DISABLE" };
 
-export const QuizContext = createContext({} as CxtState);
+export const QuizContext = createContext({} as CxtState );
 
 export function redcFunc(
   redcState: initialStateType,
