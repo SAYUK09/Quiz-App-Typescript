@@ -6,3 +6,4 @@
 - Typescript
 - Express
 - MongoDB + Mongoose
+- Material UI
