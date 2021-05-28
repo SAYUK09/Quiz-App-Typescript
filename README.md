@@ -1,2 +1,8 @@
 # Quiz-App-Typescript
-Created with CodeSandbox
+
+### Tech Stack :
+
+- React
+- Typescript
+- Express
+- MongoDB + Mongoose
