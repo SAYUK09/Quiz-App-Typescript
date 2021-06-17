@@ -34,6 +34,8 @@ export function Quiz() {
     })();
   }, []);
 
+  console.log(state.data.questions);
+
   const useChip = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -44,9 +46,9 @@ export function Quiz() {
           margin: theme.spacing(0.5),
           // fontWeight: "bolder",
           alignItems: "center",
-          color: "white"
-        }
-      }
+          color: "white",
+        },
+      },
     })
   );
 
@@ -56,9 +58,9 @@ export function Quiz() {
         "& > *": {
           margin: theme.spacing(1),
           color: "white",
-          padding: "0rem"
-        }
-      }
+          padding: "0rem",
+        },
+      },
     })
   );
 
@@ -67,9 +69,9 @@ export function Quiz() {
       root: {
         "& > *": {
           margin: theme.spacing(1),
-          color: "color"
-        }
-      }
+          color: "color",
+        },
+      },
     })
   );
 
@@ -116,36 +118,41 @@ export function Quiz() {
           </div>
 
           <div className="optDiv">
-            {state.data.questions[state.currentQsNo].options.map(
-              (item: any) => (
-                <button
-                  className={`singleOption  ${selected && checkHandler(item)}`}
-                  disabled={state.disable}
-                  onClick={() => {
-                    setSelected(item);
-                    dispatch({ type: "TOGGLE_DISABLE" });
+            {state.data.questions &&
+              state.data.questions[state.currentQsNo].options.map(
+                (item: any) => (
+                  <button
+                    className={`singleOption  ${
+                      selected && checkHandler(item)
+                    }`}
+                    disabled={state.disable}
+                    onClick={() => {
+                      setSelected(item);
+                      dispatch({ type: "TOGGLE_DISABLE" });
 
-                    if (item.isRight) {
-                      dispatch({
-                        type: "RIGHT_ANS",
-                        payload: {
-                          score: state.data.questions[state.currentQsNo].points
-                        }
-                      });
-                    } else {
-                      dispatch({
-                        type: "WRONG_ANS",
-                        payload: {
-                          score: state.data.questions[state.currentQsNo].points
-                        }
-                      });
-                    }
-                  }}
-                >
-                  {item.answer}
-                </button>
-              )
-            )}
+                      if (item.isRight) {
+                        dispatch({
+                          type: "RIGHT_ANS",
+                          payload: {
+                            score:
+                              state.data.questions[state.currentQsNo].points,
+                          },
+                        });
+                      } else {
+                        dispatch({
+                          type: "WRONG_ANS",
+                          payload: {
+                            score:
+                              state.data.questions[state.currentQsNo].points,
+                          },
+                        });
+                      }
+                    }}
+                  >
+                    {item.answer}
+                  </button>
+                )
+              )}
           </div>
 
           <div className="submitButtonDiv">
